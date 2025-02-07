@@ -1,7 +1,13 @@
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+
+from reefconnect.angles import calculate_angle, calculate_direction_sector
+from reefconnect.utils import haversine
 import geopandas as gpd
 import numpy as np
-from ..angles import calculate_angle, calculate_direction_sector
-from ..utils import haversine
 import xarray as xr
 
 def process_reef_angles(shapefile_path, output_dir='output'):
