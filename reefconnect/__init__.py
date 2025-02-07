@@ -10,7 +10,7 @@ This package provides tools for:
 """
 
 from .angles import calculate_angles, compute_bearing
-from .matrix import create_connectivity_matrix
+from .connectivity import create_connectivity_matrix
 from .kernels import generate_kernels
 
 __version__ = "0.1.0"

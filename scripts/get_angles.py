@@ -78,9 +78,19 @@ def process_reef_angles(shapefile_path, output_dir='output'):
     # Save to NetCDF file
     ds.to_netcdf(f'{output_dir}/GBR_reefs_connectivity.nc')
 
-#if __name__ == "__main__":
-#    shapefile_path = '/path/to/your/shapefile.shp'
-#    process_reef_angles(shapefile_path)
+def main():
+    """Command line interface for processing reef angles."""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Process reef angles from shapefile.')
+    parser.add_argument('--shapefile', required=True, help='Path to input shapefile')
+    parser.add_argument('--output-dir', default='output', help='Output directory')
+    
+    args = parser.parse_args()
+    process_reef_angles(args.shapefile, args.output_dir)
+
+if __name__ == "__main__":
+    main()
     
 shapefile_path = '/datasets/work/oa-coconet/work/oceanparcels_gbr_Coral/Shape_files/gbr1_coral_1m_merged_buffer0p001.shp'
 output_dir = '/datasets/work/oa-coconet/work/Outputs_new_Runs/Angles/'
