@@ -13,7 +13,8 @@ echo "Starting ReefConnect analysis..."
 echo "Processing reef angles..."
 python /datasets/work/oa-coconet/work/ReefConnect/reefconnect/scripts/get_angles.py \
     --shapefile $SHAPEFILE_PATH \
-    --output-dir $OUTPUT_DIR
+    --output-dir $OUTPUT_DIR \
+    --verbose
 
 echo "Processing reef connectivity..."
 #python /datasets/work/oa-coconet/work/ReefConnect/reefconnect/scripts/get_connectivity.py \
