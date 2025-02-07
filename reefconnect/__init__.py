@@ -9,14 +9,16 @@ This package provides tools for:
 - Generating connectivity kernels
 """
 
-from .angles import calculate_angles, compute_bearing
-from .connectivity import create_connectivity_matrix
-from .kernels import generate_kernels
+from .angles import calculate_angle, calculate_direction_sector
+from .utils import haversine
+from .connectivity import ConnectivityCalculator
+from .kernels import calculate_ds
 
 __version__ = "0.1.0"
 __all__ = [
-    'calculate_angles',
-    'compute_bearing',
-    'create_connectivity_matrix',
-    'generate_kernels',
+    'calculate_angle',
+    'calculate_direction_sector',
+    'haversine',
+    'ConnectivityCalculator',
+    'calculate_ds'
 ]
