@@ -29,10 +29,11 @@ echo "Start time: $(date)"
 echo "=========================================="
 
 # Change to project directory
-cd /home/por07g/Documents/Projects/GBR_modeling/ReefConnect
+cd /datasets/work/oa-coconet/work/ReefConnect/
+# cd /home/por07g/Documents/Projects/GBR_modeling/ReefConnect
 
 # Activate conda environment
-conda activate GBR_env
+# conda activate GBR_env
 
 # Test with small chunk size and limited repetitions
 echo "Running parallel connectivity analysis with test parameters..."
