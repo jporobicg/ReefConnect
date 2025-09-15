@@ -349,15 +349,14 @@ def run_connectivity_analysis_parallel(config_path: str, shapefile_path: str = N
     print(f"   ✅ Found {len(particle_files)} particle files")
     
     # 4. Initialize connectivity matrix
-    sample_size = config['bootstrap']['sample_size']
-    n_repetitions = config['bootstrap']['n_repetitions']
     print(f"\n4. Initializing connectivity matrix...")
-    print(f"   Dimensions: {num_sites} sources × {num_sites} sinks × {n_repetitions} samples")
+    print(f"   Dimensions: {num_sites} sources × {num_sites} sinks × 2 treatments × {n_repetitions} samples")
     
-    ## minimum age for competence
+    # Calculate minimum age for competence
     tc = config['competence']['tc']
     t_min = config['connolly_competence']['t_min']
     cutt_off = min(tc, t_min)
+    print(f"   Minimum age cutoff: {cutt_off} days")
 
     connectivity_matrix = np.zeros((num_sites, num_sites, 2, n_repetitions), dtype=np.float32)
     
