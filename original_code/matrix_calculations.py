@@ -338,10 +338,9 @@ def calc(source_reef):
             connect_max = (connect.groupby('traj')['connect'].max()/ntraj).to_numpy()
             ## Average connectivity through all the particles in that reef
             connectivity_matrix_max[reef_index] = connect_max.mean()
-            connectivity_matrix_sum[reef_index] = connect_sum.mean()
-            ## Variance
+                    ## Variance
             connectivity_variance_max[reef_index] = connect_max.var()
-            connectivity_variance_sum[reef_index] = connect_sum.var()
+
             particles.drop(index = particles.iloc[m].index, inplace=True)
 
   print(source_reef, int(time.time() - t + 0.5), flush = True)

@@ -1,0 +1,53 @@
+# Connectivity Parameters Configuration
+# 
+# This file contains all parameters used in the reef connectivity calculations
+# Based on Moneghetti et al. (2019) models
+
+# Decay Parameters (Piecewise Weibull-Weibull Survival Model)
+decay:
+  Tcp_decay: 2.583      # Age at transition between survival curves (days)
+  lmbda1: 0.4           # Scale parameter for first Weibull phase
+  lmbda2: 0.019         # Scale parameter for second Weibull phase  
+  v1: 2.892             # Shape parameter for first Weibull phase
+  v2: 1.716             # Shape parameter for second Weibull phase
+  sigma1: 0             # Standard deviation for first phase (0 = exponential)
+  sigma2: 0             # Standard deviation for second phase (0 = exponential)
+
+# Competence Parameters (Piecewise Weibull-Exponential Competence Model)
+competence:
+  tc: 3.333             # Age at maximum competence level (days)
+  Tcp_comp: 69.91245    # Age at competence decline start (days)
+  alpha: 1.295          # Scale parameter of Weibull distribution
+  beta1: 0.001878001    # Shape parameter for early decline phase
+  beta2: 0.3968972      # Shape parameter for late decline phase
+  v: 0.364              # Exponential decay parameter in early decline
+
+# Connolly Competence Parameters (Connolly et al. 2010)
+connolly_competence:
+  t_min: 2.0            # Minimum age for competence (days)
+  t_max: 8.0            # Age of maximum competence (days)
+  alpha: 8.0            # Shape parameter controlling competence increase rate
+  beta: 0.3             # Shape parameter controlling competence decline rate
+
+# Bootstrap Parameters
+bootstrap:
+  sample_size: 500      # Number of particles to sample per bootstrap
+  n_repetitions: 100     # Number of bootstrap repetitions
+
+# Species Parameters
+species:
+  name: "merulinidae"  # Options: acropora, merulinidae
+  use_day_weighting: true  # Whether to use species-specific day weighting
+  use_hour_weighting: true  # Whether to use species-specific hour weighting
+  use_combined_weighting: true  # Whether to combine day and hour weighting
+
+# File Patterns
+file_patterns:
+  particle_file: "GBR1_H2p0_Coral_Release_{release_day}_Polygon_{reef_id}_Wind_3_percent_displacement_field.nc"
+  output_file: "connectivity_results_{release_day}.nc"
+
+# Default Paths (can be overridden via command line)
+default_paths:
+  shapefile: "test/shapefile/gbr1_coral_1m_merged_buffer0p001.shp"
+  particle_data: "test/2015-10-29/"
+  output_directory: "./output/" 
