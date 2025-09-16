@@ -347,6 +347,7 @@ def run_connectivity_analysis_parallel(config_path: str, shapefile_path: str = N
     print(f"\n3. Finding particle files for release day {release_day}...")
     if particle_data_path is None:
         particle_data_path = config['default_paths']['particle_data']
+    print(f" \n path to particles {particle_data_path}")
     
     particle_files = list_particle_files(particle_data_path, release_day)
     print(f"Found {len(particle_files)} particle files for release day {release_day}")
