@@ -325,7 +325,11 @@ def run_connectivity_analysis_parallel(config_path: str, shapefile_path: str = N
     print(f"\n1. Loading configuration from: {config_path}")
     config = load_config(config_path)
     print(f"   ✅ Configuration loaded")
-    print(f"   Bootstrap: {config['bootstrap']['sample_size']} particles, {config['bootstrap']['n_repetitions']} repetitions")
+    
+    # Extract bootstrap parameters
+    sample_size = config['bootstrap']['sample_size']
+    n_repetitions = config['bootstrap']['n_repetitions']
+    print(f"   Bootstrap: {sample_size} particles, {n_repetitions} repetitions")
     
     # 2. Load shapefile and calculate spatial metrics
     print(f"\n2. Loading shapefile and calculating spatial metrics...")
