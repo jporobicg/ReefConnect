@@ -48,6 +48,6 @@ file_patterns:
 
 # Default Paths (can be overridden via command line)
 default_paths:
-  shapefile: "test/shapefile/gbr1_coral_1m_merged_buffer0p001.shp"
-  particle_data: "test/2015-10-29/"
+  shapefile: "/datasets/work/oa-coconet/work/OceanParcels-GBR/data/Shape_files/gbr1_coral_1m_merged_buffer0p001.shp"
+  particle_data: "/datasets/work/oa-coconet/work/OceanParcels-GBR/outputs/Coral/" 
   output_directory: "./output/" 
