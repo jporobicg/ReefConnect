@@ -202,7 +202,7 @@ def list_particle_files(data_directory: str, release_day: str) -> List[str]:
     List[str]
         List of particle file paths.
     """
-    pattern = f"/{release_day}/GBR1_H2p0_Coral_Release_{release_day}_Polygon_*_Wind_3_percent_displacement_field.nc"
+    pattern = f"GBR1_H2p0_Coral_Release_{release_day}_Polygon_*_Wind_3_percent_displacement_field.nc"
     data_path = Path(data_directory)
     
     if not data_path.exists():
