@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH --account=OD-232538
-#SBATCH --time=2-2:00:00
-#SBATCH --mem=512g
-#SBATCH --cpus-per-task=64
+#SBATCH --time=12:00:00
+#SBATCH --mem=20g
+#SBATCH --cpus-per-task=8
 #SBATCH --array=0-0%1  # Single job for testing
 #SBATCH --output=logs/test_parallel_%A_%a.out
 #SBATCH --error=logs/test_parallel_%A_%a.err
