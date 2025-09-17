@@ -46,7 +46,7 @@ echo ""
 python run_connectivity_parallel.py \
     --config config/connectivity_parameters.yaml \
     --release-day 2015-10-29 \
-    --chunk-size 1 \
+    --chunk-size 200 \
     --output output/test_parallel_results.nc
 
 # Check exit status
