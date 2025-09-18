@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --account=OD-232538
-#SBATCH --time=12:00:00
+#SBATCH --time=8:00:00
 #SBATCH --mem=20g
 #SBATCH --cpus-per-task=8
 #SBATCH --array=0-0%1  # Single job for testing
@@ -46,7 +46,7 @@ echo ""
 python run_connectivity_parallel.py \
     --config config/connectivity_parameters.yaml \
     --release-day 2015-10-29 \
-    --chunk-size 200 \
+    --chunk-size 50 \
     --output output/test_parallel_results.nc
 
 # Check exit status

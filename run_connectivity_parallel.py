@@ -23,7 +23,8 @@ from io_utils import (
     load_config, load_shapefile_and_centroids, load_particle_data, load_sampled_trajectory_data,
     list_particle_files, extract_reef_id_from_filename, create_netcdf_output,
     verify_output_structure, filter_reefs_by_bounds, get_release_times_from_netcdf,
-    calculate_species_day_weights, calculate_species_hour_weights, calculate_combined_day_hour_weights
+    calculate_species_day_weights, calculate_species_hour_weights, calculate_combined_day_hour_weights,
+    fast_spatial_filtering, quick_bounding_box_filter
 )
 from spatial_metrics import calculate_angles_and_distances
 from ecological_processes import piecewise_decay, piecewise_competence, connolly_competence
@@ -75,10 +76,9 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         # Initialize connectivity slice for this reef
         connectivity_slice = np.zeros((num_sites, 2, n_repetitions), dtype=np.float32)
         
-        # Get trajectory information and release times
+        # Open NetCDF file once and keep it open for all operations
         output_nc = xr.open_dataset(particle_file)
         total_trajectories = output_nc.sizes['traj']
-        output_nc.close()
         
         # Get species parameters from config
         species_config = config.get('species', {})
@@ -89,7 +89,7 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         
         # Get release times for weighting (if any weighting is enabled)
         if use_day_weighting or use_hour_weighting or use_combined_weighting:
-            release_times, _ = get_release_times_from_netcdf(particle_file)
+            release_times, _ = get_release_times_from_netcdf(output_nc)
         
         # Process all bootstrap samples for this reef (limit to 2 for testing)
         max_repetitions = min(2, n_repetitions)  # Stop after 2 repetitions for testing
@@ -122,30 +122,23 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
                     trajectory_indices = np.random.choice(total_trajectories, sample_size, replace=True)
             
             # Load only sampled trajectories directly from NetCDF
-            sampled_particles, spatial_bounds = load_sampled_trajectory_data(particle_file, trajectory_indices, cutt_off)
+            sampled_particles, spatial_bounds = load_sampled_trajectory_data(output_nc, trajectory_indices, cutt_off)
             
             # Filter reefs based on particle spatial bounds
             candidate_reefs = filter_reefs_by_bounds(data_shape, spatial_bounds)
             
-            # Calculate connectivity for this sample (only check candidate reefs)
-            # Create a copy of particles for processing (to allow removal)
-            particles_copy = sampled_particles.copy()
+            # Calculate connectivity for this sample using FAST spatial filtering
+            # Apply bounding box pre-filter for additional speedup
+            filtered_candidate_reefs = quick_bounding_box_filter(sampled_particles, candidate_reefs, data_shape)
             
-            for sink_reef_id in candidate_reefs:
-                # Check if particles reached this sink reef
-                sink_polygon = data_shape['geometry'][sink_reef_id]  # Use actual polygon, not centroid
-                
-                if len(particles_copy) == 0:
-                    break  # No more particles to process
-                
-                # Find particles in this reef using vectorized approach
-                particle_points = [Point(lon, lat) for lon, lat in zip(particles_copy['longitudes'], particles_copy['latitudes'])]
-                in_polygon_mask = [sink_polygon.contains(point) for point in particle_points]
-                settled_indices = np.where(in_polygon_mask)[0]
-                
+            # Use fast spatial join to find all particle-reef matches at once
+            settled_particles_by_reef = fast_spatial_filtering(sampled_particles, filtered_candidate_reefs, data_shape)
+            
+            # Process each reef with settled particles
+            for sink_reef_id, settled_indices in settled_particles_by_reef.items():
                 if len(settled_indices) > 0:
                     # Get settled particles data
-                    settled_particles = particles_copy.iloc[settled_indices]
+                    settled_particles = sampled_particles.iloc[settled_indices]
                     settled_age = settled_particles['age'].values
                     settled_traj = settled_particles['trajectories'].values
                     
@@ -187,9 +180,6 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
                     # Store connectivity
                     connectivity_slice[sink_reef_id, 0, sample_idx] = connectivity_moneghetti
                     connectivity_slice[sink_reef_id, 1, sample_idx] = connectivity_connolly
-                    
-                    # Remove settled particles to avoid double-counting
-                    particles_copy = particles_copy.drop(particles_copy.index[settled_indices]).reset_index(drop=True)
             
             # Debug output after each bootstrap sample
             current_memory = process.memory_info().rss / 1024 / 1024  # MB
@@ -201,6 +191,9 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         
         print(f"    Reef {reef_id}: Completed - Memory used: {memory_usage:.1f}MB, Final: {final_memory:.1f}MB")
         
+        # Close NetCDF file
+        output_nc.close()
+        
         return {
             'reef_id': reef_id,
             'connectivity_slice': connectivity_slice,
@@ -210,6 +203,10 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         }
         
     except Exception as e:
+        # Close NetCDF file if it was opened
+        if 'output_nc' in locals():
+            output_nc.close()
+        
         return {
             'reef_id': reef_id if 'reef_id' in locals() else k,
             'connectivity_slice': None,
