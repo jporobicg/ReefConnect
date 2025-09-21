@@ -207,7 +207,7 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         if 'output_nc' in locals():
             output_nc.close()
         
-        return {
+        return 
             'reef_id': reef_id if 'reef_id' in locals() else k,
             'connectivity_slice': None,
             'status': 'failed',
