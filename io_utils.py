@@ -116,8 +116,6 @@ def load_sampled_trajectory_data(output_nc: xr.Dataset, trajectory_indices: np.n
     Tuple[pd.DataFrame, Dict[str, float]]
         DataFrame with all particles from sampled trajectories and spatial bounds dictionary.
     """
-    print(f"Loading sampled trajectory data from provided dataset (trajectories: {len(trajectory_indices)})")
-    
     # Sample trajectories and get all particles from those trajectories
     # NetCDF structure: [time, traj] dimensions
     sampled_lat = output_nc['lat'].values[trajectory_indices, :].ravel()
@@ -144,8 +142,6 @@ def load_sampled_trajectory_data(output_nc: xr.Dataset, trajectory_indices: np.n
         'min_lon': particles['longitudes'].min(),
         'max_lon': particles['longitudes'].max()
     }
-    
-    print(f"     Loaded {len(particles)} particles from {len(trajectory_indices)} trajectories")
     
     return particles, spatial_bounds
 

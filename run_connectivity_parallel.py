@@ -68,10 +68,9 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         particle_file = particle_files[k]
         reef_id = extract_reef_id_from_filename(particle_file)
         
-        # Track memory usage
+        # Track memory usage (but don't print)
         process = psutil.Process()
         initial_memory = process.memory_info().rss / 1024 / 1024  # MB
-        print(f"    Reef {reef_id}: Starting with {initial_memory:.1f}MB memory")
         
         # Initialize connectivity slice for this reef
         connectivity_slice = np.zeros((num_sites, 2, n_repetitions), dtype=np.float32)
@@ -91,9 +90,8 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
         if use_day_weighting or use_hour_weighting or use_combined_weighting:
             release_times, _ = get_release_times_from_netcdf(output_nc)
         
-        # Process all bootstrap samples for this reef (limit to 2 for testing)
-        max_repetitions = min(2, n_repetitions)  # Stop after 2 repetitions for testing
-        for sample_idx in range(max_repetitions):
+        # Process all bootstrap samples for this reef
+        for sample_idx in range(n_repetitions):
             # Sample trajectory indices using species-specific weighting
             if use_combined_weighting:
                 # Use combined day and hour weighting
@@ -181,15 +179,10 @@ def main_calculations(k, particle_files, config, data_shape, n_repetitions, samp
                     connectivity_slice[sink_reef_id, 0, sample_idx] = connectivity_moneghetti
                     connectivity_slice[sink_reef_id, 1, sample_idx] = connectivity_connolly
             
-            # Debug output after each bootstrap sample
-            current_memory = process.memory_info().rss / 1024 / 1024  # MB
-            print(f"    Reef {reef_id}: Sample {sample_idx + 1}/{max_repetitions} - Memory: {current_memory:.1f}MB")
         
-        # Calculate memory usage
+        # Calculate memory usage (but don't print)
         final_memory = process.memory_info().rss / 1024 / 1024  # MB
         memory_usage = final_memory - initial_memory
-        
-        print(f"    Reef {reef_id}: Completed - Memory used: {memory_usage:.1f}MB, Final: {final_memory:.1f}MB")
         
         # Close NetCDF file
         output_nc.close()
@@ -292,8 +285,9 @@ def process_reefs_in_chunks(particle_files, config, data_shape, n_repetitions, s
 
 
 def run_connectivity_analysis_parallel(config_path: str, shapefile_path: str = None, 
-                                     particle_data_path: str = None, output_path: str = None,
-                                     release_day: str = "2015-10-29", chunk_size: int = 200):
+                                      particle_data_path: str = None, output_path: str = None,
+                                      release_day: str = "2015-10-29", chunk_size: int = 200, 
+                                      species: str = None):
     """
     Run connectivity analysis using parallel processing.
     
@@ -323,10 +317,16 @@ def run_connectivity_analysis_parallel(config_path: str, shapefile_path: str = N
     config = load_config(config_path)
     print(f"   ✅ Configuration loaded")
     
+    # Override species if provided
+    if species is not None:
+        config['species']['name'] = species
+        print(f"   Species overridden to: {species}")
+    
     # Extract bootstrap parameters
     sample_size = config['bootstrap']['sample_size']
     n_repetitions = config['bootstrap']['n_repetitions']
     print(f"   Bootstrap: {sample_size} particles, {n_repetitions} repetitions")
+    print(f"   Species: {config['species']['name']}")
     
     # 2. Load shapefile and calculate spatial metrics
     print(f"\n2. Loading shapefile and calculating spatial metrics...")
@@ -487,6 +487,12 @@ Examples:
         help='Number of reefs per chunk (default: 200)'
     )
     
+    parser.add_argument(
+        '--species',
+        choices=['acropora', 'merulinidae'],
+        help='Species to process (overrides config)'
+    )
+    
     args = parser.parse_args()
     
     # Run the analysis
@@ -496,7 +502,8 @@ Examples:
         particle_data_path=args.particle_data,
         output_path=args.output,
         release_day=args.release_day,
-        chunk_size=args.chunk_size
+        chunk_size=args.chunk_size,
+        species=args.species
     )
     
     if success:
