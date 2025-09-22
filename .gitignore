@@ -2,6 +2,10 @@
 *.nc
 output/*.nc
 
+# CSV connectivity files
+output/*_Connectivity_*.csv
+output/*connectivity*.csv
+
 # Log files
 #logs/
 #*.log
