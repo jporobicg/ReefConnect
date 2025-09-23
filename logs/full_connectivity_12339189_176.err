@@ -1,0 +1,10 @@
+/apps/python/3.12.3/lib/python3.12/site-packages/joblib/externals/loky/process_executor.py:752: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:555: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+  assert ds.dims['source'] == expected_sources, f"Wrong number of sources: {ds.dims['source']}"
+/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:556: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+  assert ds.dims['sink'] == expected_sinks, f"Wrong number of sinks: {ds.dims['sink']}"
+/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:557: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+  assert ds.dims['treatment'] == 2, f"Wrong number of treatments: {ds.dims['treatment']}"
+/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:558: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
+  assert ds.dims['sample'] == expected_samples, f"Wrong number of samples: {ds.dims['sample']}"

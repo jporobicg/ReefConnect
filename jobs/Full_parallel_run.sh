@@ -1,15 +1,16 @@
 #!/bin/bash
+#SBATCH --account=OD-232538
 #SBATCH --job-name=full_connectivity
 #SBATCH --output=logs/full_connectivity_%A_%a.out
 #SBATCH --error=logs/full_connectivity_%A_%a.err
 #SBATCH --time=24:00:00
 #SBATCH --mem=200G
 #SBATCH --cpus-per-task=64
-#SBATCH --array=0-499
-#SBATCH --partition=compute
+#SBATCH --array=0-439
+##SBATCH --partition=compute
 
 # Calculate which run, chunk, and species we're processing
-# Each job will do 10 repetitions (set in config file)
+
 NUM_CHUNKS=10
 NUM_SPECIES=2
 
@@ -17,9 +18,14 @@ run_idx=$((SLURM_ARRAY_TASK_ID / (NUM_CHUNKS * NUM_SPECIES)))
 chunk_num=$(((SLURM_ARRAY_TASK_ID / NUM_SPECIES) % NUM_CHUNKS))
 species_idx=$((SLURM_ARRAY_TASK_ID % NUM_SPECIES))
 
+# Create logs directory if it doesn't exist
+mkdir -p logs
+
+# Load Python module
+module load python
 # Print job information
 echo "=========================================="
-echo "PARALLEL CONNECTIVITY TEST JOB"
+echo "PARALLEL CONNECTIVITY Full JOB"
 echo "=========================================="
 echo "Job ID: $SLURM_JOB_ID"
 echo "Array Task ID: $SLURM_ARRAY_TASK_ID"
@@ -40,22 +46,35 @@ echo ""
 
 # Define date array (25 different dates)
 dates=(
-    "2015-10-29" "2015-11-05" "2015-11-12" "2015-11-19" "2015-11-26"
-    "2015-12-03" "2015-12-10" "2015-12-17" "2015-12-24" "2015-12-31"
-    "2016-01-07" "2016-01-14" "2016-01-21" "2016-01-28" "2016-02-04"
-    "2016-02-11" "2016-02-18" "2016-02-25" "2016-03-03" "2016-03-10"
-    "2016-03-17" "2016-03-24" "2016-03-31" "2016-04-07"
-)
+    "2015-10-29"
+    "2015-11-28"
+    "2015-12-27"
+    "2016-10-18"
+    "2016-11-17"
+    "2016-12-16"
+    "2017-10-08"
+    "2017-11-06"
+    "2017-12-06"
+    "2018-10-27"
+    "2018-11-25"
+    "2018-12-25"
+    "2019-10-16"
+    "2019-11-15"
+    "2019-12-14"
+    "2020-10-04"
+    "2020-11-03"
+    "2020-12-02"
+    "2021-01-01"
+    "2021-10-23"
+    "2021-11-21"
+    "2021-12-21"
+   )
 
 # Define species array
 species=("acropora" "merulinidae")
 
 # Change to project directory (use relative path)
-cd "$(dirname "$0")/.." || {
-    echo "Error: Cannot change to project directory"
-    exit 1
-}
-
+cd /datasets/work/oa-coconet/work/ReefConnect/
 # Get the date and species for this chunk
 date_model="${dates[$chunk_num]}"
 current_species="${species[$species_idx]}"

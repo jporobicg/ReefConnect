@@ -1,0 +1,87 @@
+==========================================
+PARALLEL CONNECTIVITY Full JOB
+==========================================
+Job ID: 12400490
+Array Task ID: 203
+Node: c286
+CPUs allocated: 64
+Memory allocated: 204800 MB
+Start time: Tue 23 Sep 2025 08:48:59 AM AEST
+==========================================
+Running parallel connectivity analysis...
+Chunk size: 200
+CPUs: 64
+
+Processing date: 2015-11-28
+Processing species: merulinidae
+Run index: 10
+Chunk number: 1
+Species index: 1
+Output file: connectivity_2015-11-28_merulinidae_run10.nc
+
+================================================================================
+REEF CONNECTIVITY ANALYSIS WITH PARALLEL PROCESSING
+================================================================================
+
+1. Loading configuration from: config/connectivity_parameters.yaml
+Configuration loaded from: config/connectivity_parameters.yaml
+   ✅ Configuration loaded
+   Species overridden to: merulinidae
+   Bootstrap: 500 particles, 10 repetitions
+   Species: merulinidae
+
+2. Loading shapefile and calculating spatial metrics...
+Loading shapefile: /datasets/work/oa-coconet/work/OceanParcels-GBR/data/Shape_files/gbr1_coral_1m_merged_buffer0p001.shp
+Loaded 3806 reef sites
+   ✅ Loaded 3806 reef sites
+   Calculating spatial metrics...
+   ✅ Spatial metrics calculated: (3806, 3806)
+
+3. Finding particle files for release day 2015-11-28...
+ 
+ path to particles /datasets/work/oa-coconet/work/OceanParcels-GBR/outputs/Coral/2015-11-28
+Found 3806 particle files for release day 2015-11-28
+Found 3806 particle files for release day 2015-11-28
+   ✅ Found 3806 particle files
+
+4. Initializing connectivity matrix...
+   Dimensions: 3806 sources × 3806 sinks × 2 treatments × 10 samples
+   Minimum age cutoff: 2.0 days
+
+5. Processing reefs in parallel chunks...
+Processing 3806 reefs in 20 chunks of 200 reefs each
+Processing chunk 1/20 (reefs 0-199)
+  ✅ Completed chunk 1 - Avg memory: 139.1MB, Max: 371.3MB
+Processing chunk 2/20 (reefs 200-399)
+  ✅ Completed chunk 2 - Avg memory: 97.5MB, Max: 342.4MB
+Processing chunk 3/20 (reefs 400-599)
+  ✅ Completed chunk 3 - Avg memory: 117.6MB, Max: 414.4MB
+Processing chunk 4/20 (reefs 600-799)
+  ✅ Completed chunk 4 - Avg memory: 126.1MB, Max: 333.0MB
+Processing chunk 5/20 (reefs 800-999)
+  ✅ Completed chunk 5 - Avg memory: 51.5MB, Max: 124.8MB
+Processing chunk 6/20 (reefs 1000-1199)
+  ✅ Completed chunk 6 - Avg memory: 43.8MB, Max: 123.7MB
+Processing chunk 7/20 (reefs 1200-1399)
+  ✅ Completed chunk 7 - Avg memory: 133.9MB, Max: 356.0MB
+Processing chunk 8/20 (reefs 1400-1599)
+  ✅ Completed chunk 8 - Avg memory: 99.9MB, Max: 342.6MB
+Processing chunk 9/20 (reefs 1600-1799)
+  ✅ Completed chunk 9 - Avg memory: 131.1MB, Max: 364.0MB
+Processing chunk 10/20 (reefs 1800-1999)
+  ✅ Completed chunk 10 - Avg memory: 131.6MB, Max: 361.7MB
+Processing chunk 11/20 (reefs 2000-2199)
+  ✅ Completed chunk 11 - Avg memory: 57.7MB, Max: 373.1MB
+Processing chunk 12/20 (reefs 2200-2399)
+  ✅ Completed chunk 12 - Avg memory: 95.2MB, Max: 331.8MB
+Processing chunk 13/20 (reefs 2400-2599)
+  ✅ Completed chunk 13 - Avg memory: 127.6MB, Max: 429.6MB
+Processing chunk 14/20 (reefs 2600-2799)
+  ✅ Completed chunk 14 - Avg memory: 82.3MB, Max: 434.8MB
+Processing chunk 15/20 (reefs 2800-2999)
+  ✅ Completed chunk 15 - Avg memory: 130.5MB, Max: 338.2MB
+Processing chunk 16/20 (reefs 3000-3199)
+  ✅ Completed chunk 16 - Avg memory: 59.5MB, Max: 315.2MB
+Processing chunk 17/20 (reefs 3200-3399)
+  ✅ Completed chunk 17 - Avg memory: 131.4MB, Max: 387.8MB
+Processing chunk 18/20 (reefs 3400-3599)
