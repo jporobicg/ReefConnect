@@ -32,7 +32,7 @@ connolly_competence:
 # Bootstrap Parameters
 bootstrap:
   sample_size: 500      # Number of particles to sample per bootstrap
-  n_repetitions: 100     # Number of bootstrap repetitions
+  n_repetitions: 10      # Number of bootstrap repetitions
 
 # Species Parameters
 species:

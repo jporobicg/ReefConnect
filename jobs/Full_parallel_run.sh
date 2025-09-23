@@ -9,7 +9,7 @@
 #SBATCH --partition=compute
 
 # Calculate which run, chunk, and species we're processing
-TOTAL_REPETITIONS=100
+# Each job will do 10 repetitions (set in config file)
 NUM_CHUNKS=10
 NUM_SPECIES=2
 
