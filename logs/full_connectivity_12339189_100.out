@@ -1,0 +1,133 @@
+==========================================
+PARALLEL CONNECTIVITY Full JOB
+==========================================
+Job ID: 12392047
+Array Task ID: 100
+Node: c339
+CPUs allocated: 64
+Memory allocated: 204800 MB
+Start time: Tue 23 Sep 2025 01:30:16 AM AEST
+==========================================
+Running parallel connectivity analysis...
+Chunk size: 200
+CPUs: 64
+
+Processing date: 2015-10-29
+Processing species: acropora
+Run index: 5
+Chunk number: 0
+Species index: 0
+Output file: connectivity_2015-10-29_acropora_run5.nc
+
+================================================================================
+REEF CONNECTIVITY ANALYSIS WITH PARALLEL PROCESSING
+================================================================================
+
+1. Loading configuration from: config/connectivity_parameters.yaml
+Configuration loaded from: config/connectivity_parameters.yaml
+   ✅ Configuration loaded
+   Species overridden to: acropora
+   Bootstrap: 500 particles, 10 repetitions
+   Species: acropora
+
+2. Loading shapefile and calculating spatial metrics...
+Loading shapefile: /datasets/work/oa-coconet/work/OceanParcels-GBR/data/Shape_files/gbr1_coral_1m_merged_buffer0p001.shp
+Loaded 3806 reef sites
+   ✅ Loaded 3806 reef sites
+   Calculating spatial metrics...
+   ✅ Spatial metrics calculated: (3806, 3806)
+
+3. Finding particle files for release day 2015-10-29...
+ 
+ path to particles /datasets/work/oa-coconet/work/OceanParcels-GBR/outputs/Coral/2015-10-29
+Found 3806 particle files for release day 2015-10-29
+Found 3806 particle files for release day 2015-10-29
+   ✅ Found 3806 particle files
+
+4. Initializing connectivity matrix...
+   Dimensions: 3806 sources × 3806 sinks × 2 treatments × 10 samples
+   Minimum age cutoff: 2.0 days
+
+5. Processing reefs in parallel chunks...
+Processing 3806 reefs in 20 chunks of 200 reefs each
+Processing chunk 1/20 (reefs 0-199)
+  ✅ Completed chunk 1 - Avg memory: 137.5MB, Max: 339.8MB
+Processing chunk 2/20 (reefs 200-399)
+  ✅ Completed chunk 2 - Avg memory: 49.3MB, Max: 143.7MB
+Processing chunk 3/20 (reefs 400-599)
+  ✅ Completed chunk 3 - Avg memory: 126.8MB, Max: 412.6MB
+Processing chunk 4/20 (reefs 600-799)
+  ✅ Completed chunk 4 - Avg memory: 129.3MB, Max: 371.1MB
+Processing chunk 5/20 (reefs 800-999)
+  ✅ Completed chunk 5 - Avg memory: 49.8MB, Max: 123.8MB
+Processing chunk 6/20 (reefs 1000-1199)
+  ✅ Completed chunk 6 - Avg memory: 37.9MB, Max: 122.8MB
+Processing chunk 7/20 (reefs 1200-1399)
+  ✅ Completed chunk 7 - Avg memory: 132.1MB, Max: 352.1MB
+Processing chunk 8/20 (reefs 1400-1599)
+  ✅ Completed chunk 8 - Avg memory: 117.6MB, Max: 354.4MB
+Processing chunk 9/20 (reefs 1600-1799)
+  ✅ Completed chunk 9 - Avg memory: 119.2MB, Max: 408.1MB
+Processing chunk 10/20 (reefs 1800-1999)
+  ✅ Completed chunk 10 - Avg memory: 120.4MB, Max: 369.7MB
+Processing chunk 11/20 (reefs 2000-2199)
+  ✅ Completed chunk 11 - Avg memory: 135.6MB, Max: 413.5MB
+Processing chunk 12/20 (reefs 2200-2399)
+  ✅ Completed chunk 12 - Avg memory: 121.8MB, Max: 362.8MB
+Processing chunk 13/20 (reefs 2400-2599)
+  ✅ Completed chunk 13 - Avg memory: 134.8MB, Max: 445.2MB
+Processing chunk 14/20 (reefs 2600-2799)
+  ✅ Completed chunk 14 - Avg memory: 122.3MB, Max: 433.9MB
+Processing chunk 15/20 (reefs 2800-2999)
+  ✅ Completed chunk 15 - Avg memory: 135.7MB, Max: 385.2MB
+Processing chunk 16/20 (reefs 3000-3199)
+  ✅ Completed chunk 16 - Avg memory: 84.2MB, Max: 342.0MB
+Processing chunk 17/20 (reefs 3200-3399)
+  ✅ Completed chunk 17 - Avg memory: 131.2MB, Max: 357.0MB
+Processing chunk 18/20 (reefs 3400-3599)
+  ✅ Completed chunk 18 - Avg memory: 112.6MB, Max: 357.7MB
+Processing chunk 19/20 (reefs 3600-3799)
+  ✅ Completed chunk 19 - Avg memory: 41.9MB, Max: 108.6MB
+Processing chunk 20/20 (reefs 3800-3805)
+  ✅ Completed chunk 20 - Avg memory: 37.9MB, Max: 68.8MB
+
+6. Collecting results into connectivity matrix...
+   ✅ Collected results from 3806 successful reefs
+
+7. Memory usage statistics:
+   Average memory per reef: 103.9MB
+   Maximum memory per reef: 445.2MB
+   Estimated memory for 64 parallel reefs: 28494.5MB
+
+9. Saving results to NetCDF...
+   Output file: output/connectivity_2015-10-29_acropora_run5.nc
+Creating NetCDF output: output/connectivity_2015-10-29_acropora_run5.nc
+NetCDF file saved: output/connectivity_2015-10-29_acropora_run5.nc
+Data type: float32, Compression: zlib level 7
+
+10. Verifying output...
+✅ Output file structure verified: output/connectivity_2015-10-29_acropora_run5.nc
+   ✅ Output verified successfully
+   File size: 117,130,133 bytes
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================
+✅ Processing time: 18787.48 seconds
+✅ Input files: 3806 particle files
+✅ Processed files: 3806
+✅ Failed files: 0
+✅ Output: output/connectivity_2015-10-29_acropora_run5.nc
+✅ Matrix dimensions: 3806×3806×2 treatments×10 samples
+
+🎉 Analysis completed successfully!
+
+==========================================
+JOB COMPLETED SUCCESSFULLY
+==========================================
+End time: Tue 23 Sep 2025 06:43:26 AM AEST
+Output file: output/connectivity_2015-10-29_acropora_run5.nc
+Output file size: 113M
+==========================================
+Job completed at: Tue 23 Sep 2025 06:43:26 AM AEST
+==========================================

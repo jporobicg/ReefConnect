@@ -1,8 +1,0 @@
-/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:559: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-  assert ds.dims['source'] == expected_sources, f"Wrong number of sources: {ds.dims['source']}"
-/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:560: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-  assert ds.dims['sink'] == expected_sinks, f"Wrong number of sinks: {ds.dims['sink']}"
-/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:561: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-  assert ds.dims['treatment'] == 2, f"Wrong number of treatments: {ds.dims['treatment']}"
-/datasets/work/oa-coconet/work/ReefConnect/io_utils.py:562: FutureWarning: The return type of `Dataset.dims` will be changed to return a set of dimension names in future, in order to be more consistent with `DataArray.dims`. To access a mapping from dimension names to lengths, please use `Dataset.sizes`.
-  assert ds.dims['sample'] == expected_samples, f"Wrong number of samples: {ds.dims['sample']}"

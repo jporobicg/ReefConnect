@@ -1,0 +1,21 @@
+==========================================
+PARALLEL CONNECTIVITY TEST JOB
+==========================================
+Job ID: 12310771
+Array Task ID: 0
+Node: c142
+CPUs allocated: 64
+Memory allocated: 204800 MB
+Start time: Mon 22 Sep 2025 01:01:39 PM AEST
+==========================================
+Running parallel connectivity analysis...
+Chunk size: 200
+CPUs: 64
+
+Processing date: 2015-10-29
+Processing species: acropora
+Run index: 0
+Chunk number: 0
+Species index: 0
+Output file: connectivity_2015-10-29_acropora_run0.nc
+
